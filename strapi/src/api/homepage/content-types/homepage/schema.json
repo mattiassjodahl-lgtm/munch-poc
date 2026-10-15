@@ -1,0 +1,23 @@
+{
+  "kind": "singleType",
+  "collectionName": "homepages",
+  "info": {
+    "singularName": "homepage",
+    "pluralName": "homepages",
+    "displayName": "Startsida"
+  },
+  "options": { "draftAndPublish": true },
+  "attributes": {
+    "hero": { "type": "component", "repeatable": false, "component": "sections.hero" },
+    "sections": {
+      "type": "dynamiczone",
+      "components": [
+        "sections.exhibition-carousel",
+        "sections.text-banner",
+        "sections.link-list",
+        "sections.events-list",
+        "sections.cta"
+      ]
+    }
+  }
+}

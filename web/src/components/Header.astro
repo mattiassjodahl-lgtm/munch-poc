@@ -1,0 +1,55 @@
+---
+interface Props { global: any; themed?: boolean }
+const { global, themed } = Astro.props;
+const nav = global?.mainNav ?? [];
+---
+<header
+  class:list={['sticky top-0 z-30 flex h-[var(--header-h)] items-center justify-between px-4 md:px-8',
+    themed ? 'themed' : 'bg-black text-white']}
+>
+  <a href="/en/" aria-label="MUNCH – home"
+     class:list={['display text-[44px] leading-none md:text-[64px]', themed ? '' : 'text-orange']}
+     style="letter-spacing:-0.01em">
+    {global?.siteName ?? 'MUNCH'}
+  </a>
+  <nav aria-label="Main" class="hidden items-center gap-8 lg:flex">
+    {nav.map((l: any) => (
+      <a href={l.url} class="display text-[52px] leading-none transition-colors hover:text-orange xl:text-[60px]">{l.label}</a>
+    ))}
+  </nav>
+  <div class="flex items-center gap-5">
+    <a href="#" class="hidden text-base md:inline">Norsk</a>
+    <button type="button" id="menu-open" aria-label="Open menu" aria-expanded="false" aria-controls="menu"
+            class="flex h-10 w-12 flex-col justify-between py-1">
+      <span class="block h-[5px] w-full bg-current"></span>
+      <span class="block h-[5px] w-full bg-current"></span>
+      <span class="block h-[5px] w-full bg-current"></span>
+    </button>
+  </div>
+</header>
+
+<div id="menu" hidden class="fixed inset-0 z-50 overflow-y-auto bg-black px-4 py-6 text-white md:px-8">
+  <div class="flex items-center justify-between">
+    <span class="display text-orange text-[44px] md:text-[64px]">MUNCH</span>
+    <button type="button" id="menu-close" aria-label="Close menu" class="display text-5xl">×</button>
+  </div>
+  <nav aria-label="Menu" class="mt-12 flex flex-col gap-3">
+    {nav.map((l: any) => <a href={l.url} class="display text-6xl hover:text-orange md:text-8xl">{l.label}</a>)}
+    <a href="/en/exhibitions" class="display text-6xl hover:text-orange md:text-8xl">EXHIBITIONS</a>
+  </nav>
+</div>
+
+<script>
+  const menu = document.getElementById('menu')!;
+  const open = document.getElementById('menu-open')!;
+  const close = document.getElementById('menu-close')!;
+  const set = (v: boolean) => {
+    menu.hidden = !v;
+    open.setAttribute('aria-expanded', String(v));
+    document.body.style.overflow = v ? 'hidden' : '';
+    (v ? close : open).focus();
+  };
+  open.addEventListener('click', () => set(true));
+  close.addEventListener('click', () => set(false));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) set(false); });
+</script>

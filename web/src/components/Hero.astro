@@ -1,0 +1,24 @@
+---
+import { mediaUrl } from '../lib/strapi';
+interface Props { hero: any; openingStatus?: string }
+const { hero, openingStatus } = Astro.props;
+const ex = hero?.exhibition;
+const src = mediaUrl(hero?.image, hero?.imageUrl || ex?.imageUrl);
+---
+<section class="relative flex min-h-[calc(100svh-var(--header-h))] flex-col justify-end overflow-hidden bg-black text-white">
+  <img src={src} alt="" class="absolute inset-0 h-full w-full object-cover" fetchpriority="high" />
+  <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
+  <div class="relative px-4 pb-10 md:px-8 md:pb-14">
+    <h1 class="display max-w-[14ch] text-[56px] md:text-[90px]">{hero?.title}</h1>
+    {hero?.dateLabel && <p class="display mt-3 text-3xl md:text-5xl">{hero.dateLabel}</p>}
+    <p class="mt-8 flex flex-wrap items-center gap-x-4 gap-y-1 text-base">
+      <span class="inline-flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-lime"></span><b>Open</b></span>
+      <span>{openingStatus}</span>
+      <a href="#" class="link-underline">All hours</a>
+    </p>
+    <div class="mt-5 flex flex-wrap gap-4">
+      {hero?.primaryCta && <a href={hero.primaryCta.url} class="btn btn-solid">{hero.primaryCta.label}</a>}
+      {ex && <a href={`/en/exhibitions/${ex.slug}`} class="btn border-white text-white hover:bg-white hover:text-black">About the exhibition</a>}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,40 @@
+{
+  "collectionName": "components_sections_hero",
+  "info": {
+    "displayName": "Hero",
+    "icon": "picture"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "dateLabel": {
+      "type": "string"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "videos"
+      ]
+    },
+    "imageUrl": {
+      "type": "string"
+    },
+    "exhibition": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::exhibition.exhibition"
+    },
+    "primaryCta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.link"
+    }
+  }
+}

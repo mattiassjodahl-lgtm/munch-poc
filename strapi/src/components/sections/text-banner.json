@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_sections_text_banner",
+  "info": {
+    "displayName": "Textbanner",
+    "icon": "quote"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "text": {
+      "type": "text"
+    },
+    "link": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.link"
+    },
+    "theme": {
+      "type": "enumeration",
+      "enum": [
+        "pinkBlack",
+        "bluePink",
+        "goldBlack",
+        "blueRed",
+        "greenPink",
+        "blackOrange",
+        "white"
+      ],
+      "default": "white"
+    }
+  }
+}

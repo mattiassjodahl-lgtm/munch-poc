@@ -1,0 +1,17 @@
+{
+  "kind": "singleType",
+  "collectionName": "globals",
+  "info": {
+    "singularName": "global",
+    "pluralName": "globals",
+    "displayName": "Globalt (header/footer)"
+  },
+  "options": { "draftAndPublish": false },
+  "attributes": {
+    "siteName": { "type": "string", "default": "MUNCH" },
+    "openingStatus": { "type": "string" },
+    "mainNav": { "type": "component", "repeatable": true, "component": "shared.link" },
+    "footerColumns": { "type": "component", "repeatable": true, "component": "shared.link-group" },
+    "footerAddress": { "type": "text" }
+  }
+}

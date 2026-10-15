@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_sections_cta",
+  "info": {
+    "displayName": "Call to action",
+    "icon": "cursor"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    },
+    "theme": {
+      "type": "enumeration",
+      "enum": [
+        "pinkBlack",
+        "bluePink",
+        "goldBlack",
+        "blueRed",
+        "greenPink",
+        "blackOrange",
+        "white"
+      ],
+      "default": "white"
+    }
+  }
+}

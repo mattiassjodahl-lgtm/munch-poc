@@ -1,0 +1,77 @@
+---
+import { marked } from 'marked';
+import Base from '../../../layouts/Base.astro';
+import ExhibitionCard from '../../../components/ExhibitionCard.astro';
+import { getExhibition, getExhibitions, mediaUrl } from '../../../lib/strapi';
+
+const { slug } = Astro.params;
+const e = await getExhibition(slug!);
+if (!e) return new Response('Not found', { status: 404 });
+const others = (await getExhibitions()).filter((x) => x.slug !== e.slug).slice(0, 4);
+Astro.response.headers.set('Cache-Control', 's-maxage=30, stale-while-revalidate=300');
+---
+<Base title={`${e.kicker} ${e.title}`} description={e.teaser} theme={e.theme}>
+  <article class="px-4 pb-20 md:px-8">
+    <figure class="pt-2">
+      <img src={mediaUrl(e.image, e.imageUrl)} alt="" class="aspect-[16/7] w-full object-cover" fetchpriority="high" />
+      {e.imageCredit && <figcaption class="mt-2 text-xs">© {e.imageCredit}</figcaption>}
+    </figure>
+
+    <header class="mt-10 md:mt-14">
+      <h1 class="display text-[56px] md:text-[96px]">
+        <span class="block">{e.kicker}</span>
+        <span class="backslant">{e.title}</span>
+      </h1>
+      {e.intro && <p class="mt-8 max-w-[38ch] text-2xl leading-snug md:text-[32px]">{e.intro}</p>}
+    </header>
+
+    <div class="mt-10 flex flex-wrap items-center gap-x-10 gap-y-4 border-y border-current py-6 text-lg">
+      <span>{e.dateLabel}</span>
+      <span>{e.floor}</span>
+      <div class="ml-auto flex flex-wrap gap-4">
+        <a href="/en/tickets" class="btn btn-solid">Buy tickets</a>
+        <a href="#" class="btn">Get membership</a>
+      </div>
+    </div>
+
+    <div class="mt-14 grid gap-10 md:grid-cols-12">
+      <div class="prose-munch space-y-10 md:col-span-8 md:col-start-3">
+        {e.body?.map((b) => {
+          switch (b.__component) {
+            case 'blocks.rich-text':
+              return <div set:html={marked.parse(b.body ?? '')} />;
+            case 'blocks.quote':
+              return (
+                <blockquote class="display text-[40px] md:text-[56px]">
+                  “{b.text}”
+                  {b.author && <footer class="mt-3 font-sans text-base normal-case">— {b.author}</footer>}
+                </blockquote>
+              );
+            case 'blocks.image':
+              return (
+                <figure>
+                  <img src={mediaUrl(b.image, b.imageUrl)} alt={b.caption ?? ''} loading="lazy" class="w-full" />
+                  {b.caption && <figcaption class="mt-2 text-sm">{b.caption}</figcaption>}
+                </figure>
+              );
+            case 'blocks.facts':
+              return (
+                <dl class="grid grid-cols-2 gap-4 border-t border-current pt-6 text-lg">
+                  {b.items?.map((i: any) => (<div><dt class="text-sm opacity-80">{i.label}</dt><dd class="display text-3xl">{i.url}</dd></div>))}
+                </dl>
+              );
+            default:
+              return null;
+          }
+        })}
+      </div>
+    </div>
+  </article>
+
+  <section class="bg-white px-4 py-16 text-black md:px-8">
+    <h2 class="display text-[48px] md:text-[68px]">SEE ALSO</h2>
+    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {others.map((x) => <ExhibitionCard exhibition={x} class="min-h-[530px]" />)}
+    </div>
+  </section>
+</Base>

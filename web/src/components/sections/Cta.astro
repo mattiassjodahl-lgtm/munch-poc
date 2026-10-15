@@ -1,0 +1,11 @@
+---
+import { themeStyle } from '../../lib/strapi';
+interface Props { section: any }
+const { section: s } = Astro.props;
+---
+<section class="themed px-4 py-20 text-center md:px-8 md:py-28" style={themeStyle(s.theme)}>
+  <h2 class="display mx-auto max-w-[22ch] text-[40px] md:text-[60px]">{s.title}</h2>
+  <div class="mt-10 flex flex-wrap justify-center gap-4">
+    {s.links?.map((l: any) => <a href={l.url} class="btn">{l.label}</a>)}
+  </div>
+</section>

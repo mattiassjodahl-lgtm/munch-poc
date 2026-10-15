@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_sections_exhibition_carousel",
+  "info": {
+    "displayName": "Utställningskarusell",
+    "icon": "apps"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "EXHIBITIONS"
+    },
+    "allLink": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.link"
+    }
+  }
+}

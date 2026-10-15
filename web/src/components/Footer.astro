@@ -1,0 +1,22 @@
+---
+interface Props { global: any }
+const { global } = Astro.props;
+const cols = global?.footerColumns ?? [];
+---
+<footer class="bg-black px-4 pt-16 pb-20 text-white md:px-8">
+  <div class="grid gap-10 md:grid-cols-4">
+    <div>
+      <p class="display text-orange text-[64px]">MUNCH</p>
+      <p class="mt-4 whitespace-pre-line text-base text-white/80">{global?.footerAddress}</p>
+    </div>
+    {cols.map((c: any) => (
+      <div>
+        <h2 class="display text-3xl">{c.title}</h2>
+        <ul class="mt-4 space-y-2 text-base">
+          {c.links?.map((l: any) => <li><a href={l.url} class="link-underline">{l.label}</a></li>)}
+        </ul>
+      </div>
+    ))}
+  </div>
+  <p class="mt-16 text-sm text-white/50">Prototype built by Consid on Strapi + Astro. Not affiliated content; images are placeholders.</p>
+</footer>

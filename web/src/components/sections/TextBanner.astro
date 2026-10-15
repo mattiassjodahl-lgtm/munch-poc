@@ -1,0 +1,10 @@
+---
+import { themeStyle } from '../../lib/strapi';
+interface Props { section: any }
+const { section: s } = Astro.props;
+---
+<section class="themed px-4 py-20 md:px-8 md:py-28" style={themeStyle(s.theme)}>
+  <h2 class="display max-w-[18ch] text-[44px] md:text-[68px]">{s.title}</h2>
+  {s.text && <p class="mt-6 max-w-3xl text-lg md:text-2xl">{s.text}</p>}
+  {s.link && <a href={s.link.url} class="btn mt-8">{s.link.label}</a>}
+</section>

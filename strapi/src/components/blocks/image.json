@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_blocks_image",
+  "info": {
+    "displayName": "Bild",
+    "icon": "picture"
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "imageUrl": {
+      "type": "string"
+    },
+    "caption": {
+      "type": "string"
+    }
+  }
+}

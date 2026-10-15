@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "exhibitions",
+  "info": {
+    "singularName": "exhibition",
+    "pluralName": "exhibitions",
+    "displayName": "Utställning",
+    "description": "Utställningar som visas i karusell, lista och detaljsida"
+  },
+  "options": { "draftAndPublish": true },
+  "attributes": {
+    "kicker": { "type": "string", "required": true, "default": "EDVARD MUNCH" },
+    "title": { "type": "string", "required": true },
+    "slug": { "type": "uid", "targetField": "title", "required": true },
+    "teaser": { "type": "text" },
+    "dateLabel": { "type": "string" },
+    "endDate": { "type": "date" },
+    "isCollection": { "type": "boolean", "default": false },
+    "floor": { "type": "string" },
+    "theme": {
+      "type": "enumeration",
+      "enum": ["pinkBlack", "bluePink", "goldBlack", "blueRed", "greenPink", "blackOrange"],
+      "default": "pinkBlack",
+      "required": true
+    },
+    "image": { "type": "media", "multiple": false, "allowedTypes": ["images"] },
+    "imageUrl": { "type": "string" },
+    "imageCredit": { "type": "string" },
+    "intro": { "type": "text" },
+    "body": {
+      "type": "dynamiczone",
+      "components": ["blocks.rich-text", "blocks.quote", "blocks.image", "blocks.facts"]
+    },
+    "order": { "type": "integer", "default": 0 }
+  }
+}

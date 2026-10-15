@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_blocks_facts",
+  "info": {
+    "displayName": "Faktaruta",
+    "icon": "information"
+  },
+  "options": {},
+  "attributes": {
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    }
+  }
+}

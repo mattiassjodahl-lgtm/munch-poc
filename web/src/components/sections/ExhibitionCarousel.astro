@@ -1,0 +1,28 @@
+---
+import ExhibitionCard from '../ExhibitionCard.astro';
+import type { Exhibition } from '../../lib/strapi';
+interface Props { section: any; exhibitions: Exhibition[] }
+const { section, exhibitions } = Astro.props;
+const id = `carousel-${section.id ?? 'x'}`;
+---
+<section class="px-4 py-16 md:px-8 md:py-24">
+  <div class="flex items-end justify-between">
+    <h2 class="display text-[48px] md:text-[68px]">{section.title}</h2>
+    <div class="hidden gap-6 md:flex">
+      <button type="button" data-dir="-1" data-target={id} aria-label="Previous" class="carousel-btn text-4xl text-line hover:text-black">←</button>
+      <button type="button" data-dir="1" data-target={id} aria-label="Next" class="carousel-btn text-4xl text-line hover:text-black">→</button>
+    </div>
+  </div>
+  <div id={id} class="no-scrollbar -mx-4 mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-4 md:-mx-8 md:px-8">
+    {exhibitions.map((e) => <ExhibitionCard exhibition={e} class="min-h-[530px] w-[80vw] shrink-0 snap-start sm:w-[320px]" />)}
+  </div>
+  {section.allLink && <a href={section.allLink.url} class="btn mt-10">{section.allLink.label}</a>}
+</section>
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.carousel-btn').forEach((b) =>
+    b.addEventListener('click', () => {
+      const el = document.getElementById(b.dataset.target!)!;
+      el.scrollBy({ left: Number(b.dataset.dir) * 340, behavior: 'smooth' });
+    }),
+  );
+</script>

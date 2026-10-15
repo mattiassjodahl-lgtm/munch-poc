@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_sections_events_list",
+  "info": {
+    "displayName": "Evenemangslista",
+    "icon": "calendar"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "UPCOMING EVENTS"
+    },
+    "limit": {
+      "type": "integer",
+      "default": 4
+    }
+  }
+}

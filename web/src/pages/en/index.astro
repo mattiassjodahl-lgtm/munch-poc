@@ -1,0 +1,28 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import ExhibitionCarousel from '../../components/sections/ExhibitionCarousel.astro';
+import TextBanner from '../../components/sections/TextBanner.astro';
+import LinkList from '../../components/sections/LinkList.astro';
+import EventsList from '../../components/sections/EventsList.astro';
+import Cta from '../../components/sections/Cta.astro';
+import { getEvents, getExhibitions, getGlobal, getHomepage } from '../../lib/strapi';
+
+const [home, exhibitions, global] = await Promise.all([getHomepage(), getExhibitions(), getGlobal()]);
+const eventsLimit = home.sections?.find((s: any) => s.__component === 'sections.events-list')?.limit ?? 4;
+const events = await getEvents(eventsLimit);
+Astro.response.headers.set('Cache-Control', 's-maxage=30, stale-while-revalidate=300');
+---
+<Base title="Home">
+  <Hero hero={home.hero} openingStatus={global?.openingStatus} />
+  {home.sections?.map((s: any) => {
+    switch (s.__component) {
+      case 'sections.exhibition-carousel': return <ExhibitionCarousel section={s} exhibitions={exhibitions} />;
+      case 'sections.text-banner': return <TextBanner section={s} />;
+      case 'sections.link-list': return <LinkList section={s} />;
+      case 'sections.events-list': return <EventsList section={s} events={events} />;
+      case 'sections.cta': return <Cta section={s} />;
+      default: return null;
+    }
+  })}
+</Base>

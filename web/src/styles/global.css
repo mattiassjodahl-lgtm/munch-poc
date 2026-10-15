@@ -1,0 +1,71 @@
+@import 'tailwindcss';
+
+/* Girott/Aktiv Grotesk är licensierade Adobe Fonts — ersatta med Anton/Hanken Grotesk i prototypen. */
+@theme {
+  --font-display: 'Anton', 'Impact', sans-serif;
+  --font-sans: 'Hanken Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  --color-ink: #141414;
+  --color-orange: #fe390f;
+  --color-pink: #eba398;
+  --color-hotpink: #ff65b1;
+  --color-navy: #0f2335;
+  --color-gold: #b89e6b;
+  --color-lime: #daf5ae;
+  --color-line: #d6d6d6;
+}
+
+:root {
+  --theme-bg: #ffffff;
+  --theme-fg: #000000;
+  --header-h: 72px;
+}
+@media (min-width: 768px) {
+  :root { --header-h: 120px; }
+}
+
+html { -webkit-font-smoothing: antialiased; }
+body {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 1.4;
+  color: #000;
+  background: #fff;
+}
+@media (min-width: 1024px) {
+  body { font-size: 22px; }
+}
+
+.display {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: 0.005em;
+}
+/* Imiterar Girott Backslant (lutar bakåt) */
+.backslant {
+  display: inline-block;
+  transform: skewX(12deg);
+  transform-origin: bottom left;
+}
+
+.themed { background: var(--theme-bg); color: var(--theme-fg); }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 14rem; height: 2.75rem; padding: 0 1.25rem;
+  font-size: 1rem; border: 1.5px solid currentColor; transition: background .15s, color .15s;
+}
+.btn-solid { background: #000; color: #fff; border-color: #000; }
+.btn-solid:hover { background: var(--color-orange); border-color: var(--color-orange); }
+.btn-ghost:hover { background: currentColor; }
+.btn-ghost:hover span { color: var(--theme-bg, #000); filter: invert(1); }
+
+.link-underline { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.link-underline:hover { text-decoration-thickness: 2px; }
+
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+.prose-munch p { margin: 0 0 1em; }
+.prose-munch em { font-style: italic; }

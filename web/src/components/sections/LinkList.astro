@@ -1,0 +1,22 @@
+---
+import { mediaUrl } from '../../lib/strapi';
+interface Props { section: any }
+const { section: s } = Astro.props;
+const src = mediaUrl(s.image, s.imageUrl);
+---
+<section class="grid gap-10 px-4 py-16 md:grid-cols-2 md:px-8 md:py-24">
+  <div>
+    <h2 class="display text-[48px] md:text-[68px]">{s.title}</h2>
+    <ul class="mt-8 border-t border-black">
+      {s.links?.map((l: any) => (
+        <li class="border-b border-black">
+          <a href={l.url} class="group flex items-center justify-between py-4 text-lg md:text-2xl">
+            <span>{l.label}</span>
+            <span class="transition-transform group-hover:translate-x-2">→</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+  {src && <img src={src} alt="" loading="lazy" class="aspect-[4/3] w-full object-cover md:aspect-auto md:h-full" />}
+</section>

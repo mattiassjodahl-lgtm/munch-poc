@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "events",
+  "info": {
+    "singularName": "event",
+    "pluralName": "events",
+    "displayName": "Evenemang"
+  },
+  "options": { "draftAndPublish": true },
+  "attributes": {
+    "title": { "type": "string", "required": true },
+    "slug": { "type": "uid", "targetField": "title" },
+    "category": { "type": "string" },
+    "startsAt": { "type": "datetime" },
+    "image": { "type": "media", "multiple": false, "allowedTypes": ["images"] },
+    "imageUrl": { "type": "string" }
+  }
+}
