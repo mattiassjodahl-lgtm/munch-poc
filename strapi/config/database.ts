@@ -61,6 +61,12 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Database 
     },
   };
 
+  // Diagnostik: logga vart vi kopplar (utan lösenord)
+  const url = env('DATABASE_URL', '');
+  let target = 'n/a';
+  try { target = url ? new URL(url).host : `(DATABASE_URL tom) ${env('DATABASE_HOST', 'localhost')}`; } catch { target = '(ogiltig DATABASE_URL)'; }
+  console.log(`[db] client=${client} target=${target}`);
+
   return {
     connection: {
       ...connections[client],
